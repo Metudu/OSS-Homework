@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: Metudu User API
+  description: Just a basic User API
+  version: 1.0.0
+  contact:
+    name: Tarik
+    email: tarikucar@gmail.com
+servers:
+  - description: Server Localhost
+    url: http://localhost:8080
+    
+paths:
+  /create:
+    description: Creates a user
+    post:
+      description: Create a user
+      requestBody:
+        description: User Properties
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  userName:
+                    type: string
+                    example: Tarik
+                  userAge:
+                    type: integer
+                    example: 20
+                  userOccupation:
+                    type: string
+                    example: Cloud Engineer
+      responses:
+        '200':
+          description: Success!
+        '400':
+          description: Something is wrong with the JSON data!
+        
+  /read:
+    description: Fetch a specific user
+    get:
+      parameters:
+        - in: query
+          name: index
+          required: true
+          schema:
+            type: integer
+            example: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userName:
+                    type: string
+                    example: Tarik
+                  userAge:
+                    type: integer
+                    example: 20
+                  userOccupation:
+                    type: string
+                    example: Cloud Engineer
+        '400':
+          description: Something is wrong with the JSON data!
+        '404':
+          description: There is no such user!
+        '500':
+          description: Something went wrong in server!
+          
+  /update:
+    description: Updates a user
+    put:
+      description: Updates a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                index:
+                  type: integer
+                  example: 0
+                user:
+                  type: object
+                  properties:
+                    userName:
+                      type: string
+                      example: Tarik
+                    userAge:
+                      type: integer
+                      example: 20
+                    userOccupation:
+                      type: string
+                      example: Cloud Engineer
+      responses:
+        '200':
+          description: Success!
+        '400':
+          description: Something is wrong with the JSON data!
+  
+  /delete:
+    description: Deletes a user
+    delete:
+      description: Deletes a user
+      parameters: 
+        - in: query
+          name: index
+          required: true
+          schema:
+            type: integer
+            example: 0
+      responses:
+        '200':
+          description: Success!
+        '400':
+          description: Something is wrong with the query parameter!
+  
+  /list:
+    description: Lists all of the users
+    get:
+      description: Lists all of the users
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    userName:
+                      type: string
+                      example: Tarik
+                    userAge:
+                      type: integer
+                      example: 20
+                    userOccupation:
+                      type: string
+                      example: Cloud Engineer
